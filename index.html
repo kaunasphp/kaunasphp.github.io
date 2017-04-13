@@ -1239,7 +1239,7 @@
     </div>
 
     <div class="footer">
-        <p>KaunasPHP 2013 - 2014</p>
+        <p>KaunasPHP 2013 - <span class="currentYear"></span></p>
     </div>
 
     <script>
@@ -1259,6 +1259,10 @@
         ga('send', 'pageview');
 
     </script>
-
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.currentYear').text((new Date).getFullYear());
+        });
+    </script>
 </body>
 </html>
