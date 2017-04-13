@@ -9,7 +9,7 @@ var app = new Vue({
     methods: {
         loadEvents: function() {
             var _this = this;
-            var endpoint = _this.nextPage == null ? "https://graph.facebook.com/v2.8/304049543047071/events?access_token=EAACEdEose0cBAOYO45wFx8JeZBaMnXrnoTL0LT6RetkeySME6nsnqerpGZBoHZAWN3YDtqC2UNpmMoKMdmDQW6SeZCI8JzBYzYrmXacwkjiP1ZB5owUwmWaEYHZAys0ZA8iKmXGkm8pQ8OwrLGtftAfLbPo1dUCbETIftBEZBPuZCBuxu7VsWPE67ZB9j2FOgiHEcZD&limit=10" : _this.nextPage;
+            var endpoint = _this.nextPage == null ? "https://graph.facebook.com/v2.8/304049543047071/events?access_token=EAAGI8PMAbmoBAAjukexfZBFipBYjmZB1ZBwTXY67lHn1khcgpXKBUYKRO3uYDBh2LDrtKr5uq84i2hVctg53ECe45oexVGZBVZAtNRzJIthSHxRYRgZCQkgNDZBhoAmfdcC4t4JoZCvfm8QMXg3IHhHRCaajq17qaJQZD&limit=10" : _this.nextPage;
             axios.get(endpoint).then(response => {
                 var fbEvents = response.data.data;
                 fbEvents.forEach(function(fbEvent) {
