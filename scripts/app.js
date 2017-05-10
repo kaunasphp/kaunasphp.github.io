@@ -1,3 +1,4 @@
+Vue.config.productionTip = false;
 var app = new Vue({
     el: '#app',
     data: {
@@ -15,9 +16,11 @@ var app = new Vue({
                 fbEvents.forEach(function(fbEvent) {
                     var description = fbEvent.description;
                     var event = {};
+
                     event.name = fbEvent.name;
                     event.facebookLink = "https://www.facebook.com/events/" + fbEvent.id;
                     event.gitHubLink = "https://github.com/kaunasphp/kaunasphp-meetups/tree/master/" + event.name.replace(".", "").replace(" ", ".");
+
                     if (new Date(fbEvent.start_time) > new Date()) {
                         event.start_time = fbEvent.start_time.replace("T", " ").substring(0, 16);
                         event.mapUrl = description.substring(description.indexOf("https://goo.gl"), description.length);
@@ -48,5 +51,5 @@ var app = new Vue({
     mounted() {
         this.loadEvents();
     },
-    
+
 });
