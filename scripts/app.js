@@ -35,7 +35,6 @@ var app = new Vue({
                 'sig_id=229274525&status=past&sig=06c55c01b760ac58f787fefa7054aec4ca609b2c';
 
             $.getJSON(endpoint).success(function(response) {
-                console.log(response);
                 if (typeof response.data !== 'undefined' && typeof  response.data.errors === 'undefined') {
                     response.data.forEach(function(meetupEvent) {
                         var event = {};
