@@ -8,47 +8,53 @@ var app = new Vue({
         nextPage: null,
     },
     methods: {
-        loadEvents: function() {
+        loadUpcommingEvents: function() {
             var _this = this;
-            var endpoint = _this.nextPage == null ? "https://graph.facebook.com/v2.8/304049543047071/events?access_token=EAAGI8PMAbmoBAO81bCcBOePVOlTd7bLKiZCUCIP76efgxRmwVMTWskZC3mHyyUnCIyd6pY5teXlbhZBDxRf2TjSf2SavnpCaQFZAV81rmBvh3qULbf1XyJx9nP0K84Qiy4yItPlcXPTZBIYLrBhV0cK8gMkREF48ZD&limit=10" : _this.nextPage;
-            axios.get(endpoint).then(response => {
-                var fbEvents = response.data.data;
-                fbEvents.forEach(function(fbEvent) {
-                    var description = fbEvent.description;
+            var endpoint = 'https://api.meetup.com/KaunasPHP/events?callback=?&photo-host=public&has_ended=false&' +
+                            'page=20&sig_id=229274525&sig=194a93faea10ab1d86412b2813dcef9e8e5b7dac';
+
+            $.getJSON(endpoint).success(function(response) {
+                response.data.forEach(function(meetupEvent) {
                     var event = {};
 
-                    event.name = fbEvent.name;
-                    event.facebookLink = "https://www.facebook.com/events/" + fbEvent.id;
-                    event.gitHubLink = "https://github.com/kaunasphp/kaunasphp-meetups/tree/master/" + event.name.replace(".", "").replace(" ", ".");
+                    event.name = meetupEvent.name;
+                    event.meetupLink = meetupEvent.link;
+                    event.mapUrl = 'https://www.google.com/maps/search/?api=1&query=' +
+                        meetupEvent.venue.lat + '%2C'+ meetupEvent.venue.lon;
+                    event.place = meetupEvent.venue.name;
+                    event.start_time = meetupEvent.local_date + ' ' + meetupEvent.local_time;
+                    event.description = meetupEvent.description;
 
-                    if (new Date(fbEvent.start_time) > new Date()) {
-                        event.start_time = fbEvent.start_time.replace("T", " ").substring(0, 16);
-                        event.mapUrl = description.substring(description.indexOf("https://goo.gl"), description.length);
-                        event.place = description.substring(description.indexOf("Vieta:") + 7, description.indexOf("Žemėlapis:"));
-                        // active events
-                        event.description = description.replace(/\n/g, '<br />');
-                        _this.activeEvents.push(event);
-                    } else {
-                        // historic events
-                        event.shortDescription = description.substring(description.indexOf("Pranešėja"), description.indexOf("Laikas:")).replace(/\n/g, '<br />');
+                    _this.activeEvents.push(event);
+                });
+            });
+        },
+        loadEvents: function() {
+            var _this = this;
+            var endpoint = 'https://api.meetup.com/KaunasPHP/events?callback=?&desc=true&photo-host=public&page=100&' +
+                'sig_id=229274525&status=past&sig=06c55c01b760ac58f787fefa7054aec4ca609b2c';
+
+            $.getJSON(endpoint).success(function(response) {
+                console.log(response);
+                if (typeof response.data !== 'undefined' && typeof  response.data.errors === 'undefined') {
+                    response.data.forEach(function(meetupEvent) {
+                        var event = {};
+
+                        event.name = meetupEvent.name;
+                        event.meetupLink = meetupEvent.link;
+                        event.shortDescription = meetupEvent.description;
+
                         event.collapseRef = "collapse" + _this.index;
                         event.collapseRefId = "#collapse" + _this.index;
                         _this.historicEvents.push(event);
-
                         _this.index++;
-                    }
-                });
-
-                if (response.data.paging.next != null)
-                    _this.nextPage = response.data.paging.next;
-                else {
-                    _this.nextPage = null;
-                    $('#moreResultsButton').hide();
+                    });
                 }
             });
         }
     },
     mounted() {
+        this.loadUpcommingEvents();
         this.loadEvents();
     },
 

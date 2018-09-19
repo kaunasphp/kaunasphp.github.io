@@ -13,7 +13,7 @@
     <meta property="og:title" content="KaunasPHP.lt - Kauno PHP bendruomenė"/>
     <meta property="og:image" content="http://www.kaunasphp.lt/media/img/kaunasphp.png"/>
     <meta property="og:url" content="http://www.kaunasphp.lt"/>
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
     <style type="text/css">
         [v-cloak] {
             display: none;
@@ -35,7 +35,7 @@
         <div class="event-description" v-html="event.description">
         </div>
         <p>
-            <br/><a v-bind:href="event.facebookLink" class="btn btn-success"><i
+            <br/><a v-bind:href="event.meetupLink" class="btn btn-success"><i
                 class="glyphicon glyphicon-plane"></i> Registruotis į susitikimą</a></p>
     </div>
     <div class="row marketing" v-cloak>
@@ -47,26 +47,25 @@
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2"
-                                   v-bind:href="event.collapseRefId">
-                                    {{ event.name }}
-                                </a>
+                                   v-bind:href="event.collapseRefId">{{ event.name }}</a>
                             </h4>
                         </div>
                         <div v-bind:id="event.collapseRef" class="panel-collapse collapse ">
                             <div class="panel-body">
-                                <p v-html="event.shortDescription">
-
-                                </p>
-                                <a v-bind:href="event.facebookLink" target="_blank"><img src="media/img/facebook.png"/></a>
-                                <a v-bind:href="event.gitHubLink" target="_blank"><img src="media/img/github-icon.jpg"/></a>
+                                <p v-html="event.shortDescription"></p>
+                                <a v-bind:href="event.meetupLink" target="_blank">
+                                    <div><img
+                                            src="media/img/meetup-com.svg" alt="Meetup logo" height="44px"
+                                            style="padding-top: 10px;"></div>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <p>
-                <a id="moreResultsButton" v-on:click="loadEvents" class="btn btn-info"><i
-                        class="glyphicon glyphicon-time"></i> Senesni susitikimai...</a></p>
+                <a href="https://www.facebook.com/groups/kaunasdev/events/" class="btn btn-info"><i
+                        class="glyphicon glyphicon-pencil"></i> FB archyvas</a></p>
         </div>
         <div class="col col-lg-4">
             <div class="panel panel-primary">
@@ -90,6 +89,10 @@
                             src="media/img/facebook.png"/></a>
                     <a href="https://github.com/kaunasphp/kaunasphp-meetups/" target="_blank"><img
                             src="media/img/github-icon.jpg"/></a>
+                    <a href="https://www.meetup.com/KaunasPHP/" target="_blank">
+                        <div><img src="media/img/meetup-com.svg"
+                                  alt="Meetup logo" height="44px" style="padding-top: 10px;"></div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -145,8 +148,8 @@
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
         a = s.createElement(o),
             m = s.getElementsByTagName(o)[0];
         a.async = 1;
