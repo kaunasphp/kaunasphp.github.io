@@ -11,7 +11,7 @@ var app = new Vue({
         loadUpcommingEvents: function() {
             var _this = this;
             var endpoint = 'https://api.meetup.com/KaunasPHP/events?callback=?&photo-host=public&has_ended=false&' +
-                            'page=20&sig_id=229274525&sig=194a93faea10ab1d86412b2813dcef9e8e5b7dac';
+                            'page=20&sign=true';
 
             $.getJSON(endpoint).success(function(response) {
                 response.data.forEach(function(meetupEvent) {
@@ -32,7 +32,7 @@ var app = new Vue({
         loadEvents: function() {
             var _this = this;
             var endpoint = 'https://api.meetup.com/KaunasPHP/events?callback=?&desc=true&photo-host=public&page=100&' +
-                'sig_id=229274525&status=past&sig=06c55c01b760ac58f787fefa7054aec4ca609b2c';
+                'status=past&sign=true';
 
             $.getJSON(endpoint).success(function(response) {
                 if (typeof response.data !== 'undefined' && typeof  response.data.errors === 'undefined') {
